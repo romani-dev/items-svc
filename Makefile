@@ -8,9 +8,11 @@ ifndef TAG
 	$(error TAG is not set)
 endif
 	docker build . -t clazz/items-svc:$(TAG)
+	docker build . -t clazz/items-svc:latest
 
 push: docker
 ifndef TAG
 	$(error TAG is not set)
 endif
 	docker push clazz/items-svc:$(TAG)
+	docker push clazz/items-svc:latest
