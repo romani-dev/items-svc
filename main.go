@@ -15,6 +15,7 @@ func main() {
 		c.JSON(200, []Item{
 			{ID: 12, Name: "IPhone", UserID: 1},
 			{ID: 13, Name: "Dell XPS", UserID: 1},
+			{ID: 14, Name: "Monitor Samsung QLED", UserID: 1},
 		})
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
