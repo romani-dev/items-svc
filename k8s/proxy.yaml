@@ -19,7 +19,7 @@ metadata:
   name: items-vs-from-gw
 spec:
   hosts:
-  - "*"
+  - "api.clazz.io"
   gateways:
   - items-gw
   http:

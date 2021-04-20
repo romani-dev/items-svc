@@ -12,6 +12,9 @@ func main() {
 	r := gin.Default()
 	r.GET("/items", func(c *gin.Context) {
 
+		requestID := c.Request.Header.Get("x-request-id")
+
+		c.Header("x-request-id", requestID)
 		c.JSON(200, []Item{
 			{ID: 12, Name: "IPhone", UserID: 1},
 			{ID: 13, Name: "Dell XPS", UserID: 1},
