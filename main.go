@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Item struct {
 	ID     int
@@ -13,7 +17,7 @@ func main() {
 	r.GET("/items", func(c *gin.Context) {
 
 		requestID := c.Request.Header.Get("x-request-id")
-
+		log.Printf("x-request-id: %v", requestID)
 		c.Header("x-request-id", requestID)
 		c.JSON(200, []Item{
 			{ID: 12, Name: "IPhone", UserID: 1},
