@@ -1,0 +1,34 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: items-release
+  namespace: estoque
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: items
+  progressDeadlineSeconds: 60
+  # Service / VirtualService Config
+  service:
+    name: items
+    port: 80
+    targetPort: 8080
+    gateways:
+    - estoque-gateway
+    hosts:
+    - estoque.clazz.dev
+  analysis:
+    interval: 45s
+    threshold: 5
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+    - name: request-success-rate
+      thresholdRange:
+        min: 99
+      interval: 1m
+    - name: request-duration
+      thresholdRange:
+        max: 500
+      interval: 30s

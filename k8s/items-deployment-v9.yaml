@@ -1,33 +1,24 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: items
-spec:
-  selector:
-    app: items
-  ports:
-  - port: 80
-    targetPort: 8080
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: items
+  name: items-v9
   labels:
-    version: v1
+    app: items
+    version: v9
 spec:
   selector:
     matchLabels:
       app: items
+      version: v9
   template:
     metadata:
       labels:
         app: items
+        version: v9
     spec:
       containers:
       - name: items
-        image: clazz/items-svc:8
+        image: clazz/items-svc:9
         resources:
           limits:
             memory: "128Mi"
