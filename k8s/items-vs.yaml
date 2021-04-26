@@ -23,5 +23,5 @@ spec:
         weight: 100
       mirror:
         host: items
-        subset: version-v9
+        subset: version-v11
       

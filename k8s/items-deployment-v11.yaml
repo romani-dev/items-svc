@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: items-v11
+  labels:
+    app: items
+    version: v11
+spec:
+  selector:
+    matchLabels:
+      app: items
+      version: v11
+  template:
+    metadata:
+      labels:
+        app: items
+        version: v11
+    spec:
+      containers:
+      - name: items
+        image: clazz/items-svc:11
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

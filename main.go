@@ -18,7 +18,7 @@ func main() {
 	r.GET("/items", func(c *gin.Context) {
 
 		requestID := c.Request.Header.Get("x-request-id")
-		host := c.Request.Header.Get("host")
+		host := c.Request.Header.Get("Host")
 		log.Printf("x-request-id: %v | host: %v", requestID, host)
 		c.Header("x-request-id", requestID)
 		// c.JSON(200, []Item{
