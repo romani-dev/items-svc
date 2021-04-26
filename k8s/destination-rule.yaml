@@ -17,3 +17,6 @@ spec:
     - name: version-v11
       labels:
         version: v11
+    - name: version-v12
+      labels:
+        version: v12
