@@ -18,7 +18,8 @@ func main() {
 	r.GET("/items", func(c *gin.Context) {
 
 		requestID := c.Request.Header.Get("x-request-id")
-		log.Printf("x-request-id: %v", requestID)
+		host := c.Request.Header.Get("host")
+		log.Printf("x-request-id: %v | host: %v", requestID, host)
 		c.Header("x-request-id", requestID)
 		// c.JSON(200, []Item{
 		// 	{ID: 12, Name: "IPhone", UserID: 1, Image: "https://picsum.photos/300/300"},

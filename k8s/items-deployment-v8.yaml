@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: items
-        image: clazz/items-svc:9
+        image: clazz/items-svc:8
         resources:
           limits:
             memory: "128Mi"

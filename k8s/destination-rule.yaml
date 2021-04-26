@@ -4,6 +4,9 @@ metadata:
   name: items
 spec:
   host: items
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
   subsets:
     - name: version-v8
       labels:

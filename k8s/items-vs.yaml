@@ -4,9 +4,9 @@ metadata:
   name: items-vs-from-gw
 spec:
   hosts:
-    - "estoque.clazz.dev"
+  - "estoque.clazz.dev"
   gateways:
-    - estoque-gateway
+  - estoque-gateway
   http:
     # - match:
     #   - headers:
@@ -19,9 +19,9 @@ spec:
     - route:
       - destination:
           host: items
-          subset: version-v9
-        weight: 10
-      - destination:
-          host: items
           subset: version-v8
-        weight: 90
+        weight: 100
+      mirror:
+        host: items
+        subset: version-v9
+      
