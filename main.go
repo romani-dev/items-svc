@@ -31,7 +31,7 @@ func main() {
 		}()
 
 		if failCount%2 == 0 {
-			c.JSON(500, gin.H{
+			c.JSON(503, gin.H{
 				"error": "Falha na request",
 			})
 

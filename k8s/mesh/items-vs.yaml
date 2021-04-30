@@ -22,6 +22,9 @@ spec:
           host: items
           subset: beta
         weight: 100
+      retries:
+        attempts: 20
+        perTryTimeout: 100ms
 
 
         
