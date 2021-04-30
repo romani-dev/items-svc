@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: items
+spec: 
+  host: items
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+  subsets:
+    - name: prod
+      labels:
+        scope: prod
+    - name: omega
+      labels:
+        scope: omega
+    - name: beta
+      labels:
+        scope: beta
+
+    

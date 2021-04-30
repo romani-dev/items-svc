@@ -21,9 +21,22 @@ type PathParamTodo struct {
 	ID string `uri:"id"`
 }
 
+var failCount int
+
 func main() {
 	r := gin.Default()
 	r.GET("/items", func(c *gin.Context) {
+		defer func() {
+			failCount++
+		}()
+
+		if failCount%2 == 0 {
+			c.JSON(500, gin.H{
+				"error": "Falha na request",
+			})
+
+			return
+		}
 
 		requestID := c.Request.Header.Get("x-request-id")
 		host := c.Request.Header.Get("Host")

@@ -1,24 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: items-v11
+  name: items-prod
   labels:
     app: items
-    version: v11
+    scope: prod
+    version: v8
 spec:
   selector:
     matchLabels:
       app: items
-      version: v11
+      scope: prod
   template:
     metadata:
       labels:
         app: items
-        version: v11
+        scope: prod
+        version: v8
     spec:
       containers:
       - name: items
-        image: clazz/items-svc:11
+        image: clazz/items-svc:8
         resources:
           limits:
             memory: "128Mi"

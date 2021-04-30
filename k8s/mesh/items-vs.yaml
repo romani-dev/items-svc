@@ -4,24 +4,28 @@ metadata:
   name: items-vs-from-gw
 spec:
   hosts:
+  - "mesh"
   - "estoque.clazz.dev"
   gateways:
   - estoque-gateway
   http:
     # - match:
     #   - headers:
-    #       x-domain:
-    #         exact: "internal"
+    #       x-scope:
+    #         exact: "beta"
     #   route:
     #   - destination:
     #       host: items
-    #       subset: version-v1
+    #       subset: beta
     - route:
       - destination:
           host: items
-          subset: version-v8
+          subset: beta
         weight: 100
-      mirror:
-        host: items
-        subset: version-v12
+
+
+        
+      # mirror:
+      #   host: items
+      #   subset: beta
       

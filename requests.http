@@ -1,2 +1,6 @@
 GET http://localhost:8081/items
 Host: estoque.clazz.dev
+
+###
+
+GET https://www.google.com

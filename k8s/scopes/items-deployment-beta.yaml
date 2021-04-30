@@ -1,24 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: items-v9
+  name: items-beta
   labels:
     app: items
-    version: v9
+    scope: beta
+    version: v13
 spec:
   selector:
     matchLabels:
       app: items
-      version: v9
+      scope: beta
   template:
     metadata:
       labels:
         app: items
-        version: v9
+        scope: beta
+        version: v13
     spec:
       containers:
       - name: items
-        image: clazz/items-svc:9
+        image: clazz/items-svc:13
         resources:
           limits:
             memory: "128Mi"

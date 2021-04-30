@@ -1,24 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: items
+  name: items-omega
   labels:
     app: items
-    version: v8
+    scope: omega
+    version: v9
 spec:
   selector:
     matchLabels:
       app: items
-      version: v8
+      scope: omega
   template:
     metadata:
       labels:
         app: items
-        version: v8
+        scope: omega
+        version: v9
     spec:
       containers:
       - name: items
-        image: clazz/items-svc:8
+        image: clazz/items-svc:9
         resources:
           limits:
             memory: "128Mi"
