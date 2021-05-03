@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -85,14 +86,22 @@ func main() {
 			}
 		}
 
+		hostname, err := os.Hostname()
+		if err != nil {
+			panic(err)
+		}
+
 		requestID := c.Request.Header.Get("x-request-id")
 		host := c.Request.Header.Get("Host")
 		log.Printf("x-request-id: %v | host: %v", requestID, host)
 		c.Header("x-request-id", requestID)
-		c.JSON(200, []Item{
-			{ID: 12, Name: "IPhone", UserID: 1, Image: "https://picsum.photos/300/300"},
-			{ID: 13, Name: "Dell XPS", UserID: 1, Image: "https://picsum.photos/300/300"},
-			{ID: 14, Name: "Monitor Samsung QLED", UserID: 1, Image: "https://picsum.photos/300/300"},
+		c.JSON(200, gin.H{
+			"host": hostname,
+			"data": []Item{
+				{ID: 12, Name: "IPhone", UserID: 1, Image: "https://picsum.photos/300/300"},
+				{ID: 13, Name: "Dell XPS", UserID: 1, Image: "https://picsum.photos/300/300"},
+				{ID: 14, Name: "Monitor Samsung QLED", UserID: 1, Image: "https://picsum.photos/300/300"},
+			},
 		})
 
 		if isSlow {
