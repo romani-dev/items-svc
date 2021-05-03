@@ -22,6 +22,10 @@ type PathParamTodo struct {
 	ID string `uri:"id"`
 }
 
+type QueryLatency struct {
+	Latency int64 `uri:"latency"`
+}
+
 var failCount int
 var isFail bool
 var isSlow bool
@@ -31,7 +35,19 @@ func main() {
 	r := gin.Default()
 
 	r.PUT("/slow", func(c *gin.Context) {
-		isSlow = !isSlow
+		isSlow = false
+		c.JSON(200, gin.H{
+			"isSlow": isSlow,
+		})
+	})
+
+	r.PUT("/slow/:latency", func(c *gin.Context) {
+		isSlow = true
+		var q QueryLatency
+		c.ShouldBindUri(&q)
+
+		slowTime = time.Duration(q.Latency) * time.Second
+		fmt.Println(q)
 
 		c.JSON(200, gin.H{
 			"isSlow": isSlow,
@@ -48,8 +64,9 @@ func main() {
 
 	r.GET("/status", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"is_slow": isSlow,
-			"is_fail": isFail,
+			"is_slow":               isSlow,
+			"slow_duration_seconds": slowTime,
+			"is_fail":               isFail,
 		})
 	})
 
