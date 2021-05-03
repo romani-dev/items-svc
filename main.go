@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,20 +23,49 @@ type PathParamTodo struct {
 }
 
 var failCount int
+var isFail bool
+var isSlow bool
+var slowTime time.Duration = 1 * time.Second
 
 func main() {
 	r := gin.Default()
+
+	r.PUT("/slow", func(c *gin.Context) {
+		isSlow = !isSlow
+
+		c.JSON(200, gin.H{
+			"isSlow": isSlow,
+		})
+	})
+
+	r.PUT("/fail", func(c *gin.Context) {
+		isFail = !isFail
+
+		c.JSON(200, gin.H{
+			"isFail": isFail,
+		})
+	})
+
+	r.GET("/status", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"is_slow": isSlow,
+			"is_fail": isFail,
+		})
+	})
+
 	r.GET("/items", func(c *gin.Context) {
-		defer func() {
-			failCount++
-		}()
 
-		if failCount%2 == 0 {
-			c.JSON(500, gin.H{
-				"error": "Falha na request",
-			})
+		if isFail {
+			defer func() {
+				failCount++
+			}()
 
-			return
+			if failCount%2 == 0 {
+				c.JSON(500, gin.H{
+					"error": "Falha na request",
+				})
+				return
+			}
 		}
 
 		requestID := c.Request.Header.Get("x-request-id")
@@ -47,6 +77,10 @@ func main() {
 			{ID: 13, Name: "Dell XPS", UserID: 1, Image: "https://picsum.photos/300/300"},
 			{ID: 14, Name: "Monitor Samsung QLED", UserID: 1, Image: "https://picsum.photos/300/300"},
 		})
+
+		if isSlow {
+			time.Sleep(slowTime)
+		}
 	})
 
 	r.GET("/todos/:id", func(c *gin.Context) {

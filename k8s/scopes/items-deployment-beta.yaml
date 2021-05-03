@@ -7,6 +7,7 @@ metadata:
     scope: beta
     version: v13
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: items
@@ -20,7 +21,7 @@ spec:
     spec:
       containers:
       - name: items
-        image: clazz/items-svc:15
+        image: clazz/items-svc:16
         resources:
           limits:
             memory: "128Mi"

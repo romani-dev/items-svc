@@ -7,6 +7,14 @@ spec:
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
+    connectionPool:
+      tcp:
+        maxConnections: 1
+      http:
+        maxRetries: 1
+        http2MaxRequests: 1
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
   subsets:
     - name: prod
       labels:

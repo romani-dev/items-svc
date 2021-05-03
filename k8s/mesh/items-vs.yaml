@@ -23,9 +23,10 @@ spec:
           subset: beta
         weight: 100
       retries:
-        attempts: 2
-        retryOn: 5xx
-        # perTryTimeout: 100ms
+        attempts: 0
+        # retryOn: 5xx
+        # perTryTimeout: 50ms
+      timeout: 300ms
 
 
         
